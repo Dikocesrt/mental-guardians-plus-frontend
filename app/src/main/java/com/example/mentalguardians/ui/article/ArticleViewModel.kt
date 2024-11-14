@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 data class ArticleUIState(
     val isLoading: Boolean = false,
     val listContent: List<ContentData> = emptyList(),
-    val isLastPage: Boolean = false
+    val isLastPage: Boolean = false,
+    val isLoadingLoadMore: Boolean = false
 )
 
 class ArticleViewModel(private val apiClient: ApiClient): ViewModel() {
@@ -33,7 +34,11 @@ class ArticleViewModel(private val apiClient: ApiClient): ViewModel() {
     fun getAllArticles(onError: (String) -> Unit, category: String) {
         Log.d("ArticleViewModel", "getAllArticles called with category: $category")
         viewModelScope.launch {
-            articleUIState = articleUIState.copy(isLoading = true)
+            if (page == 1){
+                articleUIState = articleUIState.copy(isLoading = true)
+            }else{
+                articleUIState = articleUIState.copy(isLoadingLoadMore = true)
+            }
             try {
                 val response = apiClient.retrofitService.getAllArticles(page = page, limit = 10, category = category)
                 if (response.isSuccessful) {
@@ -69,6 +74,7 @@ class ArticleViewModel(private val apiClient: ApiClient): ViewModel() {
                 onError(e.localizedMessage ?: "Error occurred")
             } finally {
                 articleUIState = articleUIState.copy(isLoading = false)
+                articleUIState = articleUIState.copy(isLoadingLoadMore = false)
                 Log.d("ArticleViewModel", "Loading finished")
             }
         }

@@ -1,5 +1,6 @@
 package com.example.mentalguardians.ui.music
 
+import android.media.MediaPlayer
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,18 +16,63 @@ import kotlinx.coroutines.launch
 data class MusicUIState(
     val isLoading: Boolean = false,
     val listContent: List<MusicData> = emptyList(),
-    val isLastPage: Boolean = false
+    val isLastPage: Boolean = false,
+    val mediaPlayer: MediaPlayer? = null,
+    val currentPlayingId: Int? = null,
+    val isLoadingLoadMore: Boolean = false
 )
 
 class MusicViewModel(private val apiClient: ApiClient): ViewModel() {
+
+    companion object {
+        // Volatile ensures visibility of changes across threads
+        @Volatile
+        private var instance: MusicViewModel? = null
+
+        // Method to get the singleton instance
+        fun getInstance(apiClient: ApiClient): MusicViewModel =
+            instance ?: synchronized(this) {
+                instance ?: MusicViewModel(apiClient).also { instance = it }
+            }
+    }
+
+    var currentPlayingId: Int? = null
+    var mediaPlayer: MediaPlayer? = null
     var musicUIState by mutableStateOf(MusicUIState())
         private set
 
     private var page = 1
 
+    fun playMusic(musicUrl: String, itemId: Int) {
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer().apply {
+            setDataSource(musicUrl)
+            setOnPreparedListener {
+                start()
+            }
+            setOnCompletionListener {
+                currentPlayingId = null
+                musicUIState = musicUIState.copy(mediaPlayer = mediaPlayer, currentPlayingId = currentPlayingId)
+            }
+            prepareAsync()
+        }
+        currentPlayingId = itemId
+        musicUIState = musicUIState.copy(mediaPlayer = mediaPlayer, currentPlayingId = currentPlayingId)
+    }
+
+    fun pauseMusic() {
+        mediaPlayer?.pause()
+        currentPlayingId = null
+        musicUIState = musicUIState.copy(mediaPlayer = mediaPlayer, currentPlayingId = currentPlayingId)
+
+    }
     fun getAllMusics(onError: (String) -> Unit){
         viewModelScope.launch{
-            musicUIState = musicUIState.copy(isLoading = true)
+            if (page == 1){
+                musicUIState = musicUIState.copy(isLoading = true)
+            }else{
+                musicUIState = musicUIState.copy(isLoadingLoadMore = true)
+            }
             try {
                 val response = apiClient.retrofitService.getAllMusics(page = page, limit = 10)
                 if (response.isSuccessful){
@@ -59,6 +105,7 @@ class MusicViewModel(private val apiClient: ApiClient): ViewModel() {
                 onError(e.localizedMessage ?: "Error occurred")
             }finally {
                 musicUIState = musicUIState.copy(isLoading = false)
+                musicUIState = musicUIState.copy(isLoadingLoadMore = false)
             }
         }
     }

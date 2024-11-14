@@ -134,6 +134,19 @@ fun VideoScreen(videoViewModel: VideoViewModel, categoryVideos: String){
                     }
                 }
             }
+
+            if (videoViewModel.videoUIState.isLoadingLoadMore) {
+                item{
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .wrapContentSize(Alignment.Center)
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+
+            }
         }
 
         LaunchedEffect(lazyColumnState) {

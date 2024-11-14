@@ -123,6 +123,17 @@ fun ArticleScreen(articleViewModel: ArticleViewModel, categoryArticles: String, 
                     }
                 }
             }
+            if (articleViewModel.articleUIState.isLoadingLoadMore) {
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .wrapContentSize(Alignment.Center)
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+            }
         }
 
         LaunchedEffect(lazyColumnState) {

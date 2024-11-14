@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 data class VideoUIState(
     val isLoading: Boolean = false,
     val listVideo: List<VideoData> = emptyList(),
-    val isLastPage: Boolean = false
+    val isLastPage: Boolean = false,
+    val isLoadingLoadMore: Boolean = false
 )
 
 class VideoViewModel(private val apiClient: ApiClient): ViewModel() {
@@ -31,7 +32,12 @@ class VideoViewModel(private val apiClient: ApiClient): ViewModel() {
 
     fun getAllVideos(onError: (String) -> Unit, categoryVideos: String){
         viewModelScope.launch{
-            videoUIState = videoUIState.copy(isLoading = true)
+            if (page == 1){
+                videoUIState = videoUIState.copy(isLoading = true)
+            }else{
+                videoUIState = videoUIState.copy(isLoadingLoadMore = true)
+            }
+
             try {
                 val response = apiClient.retrofitService.getAllVideos(page = page, limit = 10, category = categoryVideos)
                 if (response.isSuccessful){
@@ -64,6 +70,7 @@ class VideoViewModel(private val apiClient: ApiClient): ViewModel() {
                 onError(e.localizedMessage ?: "Error occurred")
             }finally {
                 videoUIState = videoUIState.copy(isLoading = false)
+                videoUIState = videoUIState.copy(isLoadingLoadMore = false)
             }
         }
     }

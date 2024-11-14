@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 data class TherapistUIState(
     val isLoading: Boolean = false,
     val listContent: List<TherapistData> = emptyList(),
-    val isLastPage: Boolean = false
+    val isLastPage: Boolean = false,
+    val isLoadingLoadMore: Boolean = false
 )
 
 class TherapistViewModel(private val apiClient: ApiClient): ViewModel() {
@@ -31,7 +32,11 @@ class TherapistViewModel(private val apiClient: ApiClient): ViewModel() {
 
     fun getAllTherapists(onError: (String) -> Unit, specialist: String){
         viewModelScope.launch{
-            therapistUIState = therapistUIState.copy(isLoading = true)
+            if (page == 1){
+                therapistUIState = therapistUIState.copy(isLoading = true)
+            }else{
+                therapistUIState = therapistUIState.copy(isLoadingLoadMore = true)
+            }
             try {
                 val response = apiClient.retrofitService.getAllTherapists(page = page, limit = 10, specialist = specialist)
                 if (response.isSuccessful){
@@ -64,6 +69,7 @@ class TherapistViewModel(private val apiClient: ApiClient): ViewModel() {
                 onError(e.localizedMessage ?: "Error occurred")
             }finally {
                 therapistUIState = therapistUIState.copy(isLoading = false)
+                therapistUIState = therapistUIState.copy(isLoadingLoadMore = false)
             }
         }
     }

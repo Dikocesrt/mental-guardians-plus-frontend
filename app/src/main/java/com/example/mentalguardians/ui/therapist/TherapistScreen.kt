@@ -145,6 +145,17 @@ fun TherapistScreen(therapistViewModel: TherapistViewModel, specialist: String, 
                     }
                 }
             }
+            if (therapistViewModel.therapistUIState.isLoadingLoadMore) {
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .wrapContentSize(Alignment.Center)
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+            }
         }
 
         LaunchedEffect(lazyColumnState) {

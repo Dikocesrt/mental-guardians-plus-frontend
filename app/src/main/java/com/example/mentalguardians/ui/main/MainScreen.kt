@@ -167,7 +167,7 @@ fun MainNavigation(
     val videoViewModel: VideoViewModel = viewModel(factory = VideoViewModelFactory(apiClient = apiClient))
     val articleViewModel: ArticleViewModel = viewModel(factory = ArticleViewModelFactory(apiClient = apiClient))
     val storyViewModel: StoryViewModel = viewModel(factory = StoryViewModelFactory(apiClient = apiClient))
-    val musicViewModel: MusicViewModel = viewModel(factory = MusicViewModelFactory(apiClient = apiClient))
+    val musicViewModel: MusicViewModel = MusicViewModel.getInstance(apiClient = apiClient)
     val profileViewModel: ProfileViewModel = viewModel(factory = ProfileViewModelFactory(apiClient = apiClient))
     val detailTherapistViewModel: DetailTherapistViewModel = viewModel(factory = DetailTherapistViewModelFactory(apiClient = apiClient))
     val detailArticleViewModel: DetailArticleViewModel = viewModel(factory = DetailArticleViewModelFactory(apiClient = apiClient))

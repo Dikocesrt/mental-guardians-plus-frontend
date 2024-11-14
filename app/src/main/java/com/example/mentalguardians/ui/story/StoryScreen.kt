@@ -144,6 +144,17 @@ fun StoryScreen(storyViewModel: StoryViewModel, categoryStories: String, navigat
                     }
                 }
             }
+            if (storyViewModel.storyUIState.isLoadingLoadMore) {
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .wrapContentSize(Alignment.Center)
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+            }
         }
 
         LaunchedEffect(lazyColumnState) {

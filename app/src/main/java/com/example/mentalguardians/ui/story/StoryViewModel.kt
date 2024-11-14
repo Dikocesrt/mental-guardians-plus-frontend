@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 data class StoryUIState(
     val isLoading: Boolean = false,
     val listContent: List<ContentData> = emptyList(),
-    val isLastPage: Boolean = false
+    val isLastPage: Boolean = false,
+    val isLoadingLoadMore: Boolean = false
 )
 
 class StoryViewModel(private val apiClient: ApiClient): ViewModel() {
@@ -31,7 +32,11 @@ class StoryViewModel(private val apiClient: ApiClient): ViewModel() {
 
     fun getAllStories(onError: (String) -> Unit, category: String){
         viewModelScope.launch{
-            storyUIState = storyUIState.copy(isLoading = true)
+            if (page == 1){
+                storyUIState = storyUIState.copy(isLoading = true)
+            }else{
+                storyUIState = storyUIState.copy(isLoadingLoadMore = true)
+            }
             try {
                 val response = apiClient.retrofitService.getAllStories(page = page, limit = 10, category = category)
                 if (response.isSuccessful){
@@ -64,6 +69,7 @@ class StoryViewModel(private val apiClient: ApiClient): ViewModel() {
                 onError(e.localizedMessage ?: "Error occurred")
             }finally {
                 storyUIState = storyUIState.copy(isLoading = false)
+                storyUIState = storyUIState.copy(isLoadingLoadMore = false)
             }
         }
     }

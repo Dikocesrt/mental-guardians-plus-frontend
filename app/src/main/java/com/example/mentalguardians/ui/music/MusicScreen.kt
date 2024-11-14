@@ -1,6 +1,5 @@
 package com.example.mentalguardians.ui.music
 
-import android.media.MediaPlayer
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -28,11 +27,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,8 +50,8 @@ fun MusicScreen(musicViewModel: MusicViewModel) {
     val context = LocalContext.current
     val lazyColumnState = rememberLazyListState()
 
-    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
-    var currentPlayingUrl by remember { mutableStateOf<String?>(null) }
+//    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+//    var currentPlayingUrl by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
@@ -79,7 +74,7 @@ fun MusicScreen(musicViewModel: MusicViewModel) {
         ) {
             items(musicViewModel.musicUIState.listContent) { item ->
 
-                val isPlaying = currentPlayingUrl == item.musicURL && mediaPlayer?.isPlaying == true
+                var isPlaying = musicViewModel.musicUIState.currentPlayingId == item.id
 
                 Card(
                     modifier = Modifier
@@ -109,8 +104,11 @@ fun MusicScreen(musicViewModel: MusicViewModel) {
                                 Image(
                                     painter = rememberAsyncImagePainter(model = item.thumbnailURL),
                                     contentDescription = "Image Thumbnail",
-                                    modifier = Modifier.height(90.dp)
-                                        .width(90.dp).fillMaxSize().clip(RoundedCornerShape(5))
+                                    modifier = Modifier
+                                        .height(90.dp)
+                                        .width(90.dp)
+                                        .fillMaxSize()
+                                        .clip(RoundedCornerShape(5))
                                 )
                             }
                             Spacer(modifier = Modifier.width(8.dp))
@@ -134,32 +132,33 @@ fun MusicScreen(musicViewModel: MusicViewModel) {
                         IconButton(
                             onClick = {
                                 scope.launch {
-                                    if (currentPlayingUrl == item.musicURL && mediaPlayer?.isPlaying == true) {
-                                        mediaPlayer?.pause()
-                                        currentPlayingUrl = null
+                                    if (musicViewModel.musicUIState.currentPlayingId == item.id && musicViewModel.musicUIState.mediaPlayer?.isPlaying == true) {
+                                        musicViewModel.pauseMusic()
                                     } else {
-                                        mediaPlayer?.release() // Release any existing MediaPlayer
-                                        mediaPlayer = MediaPlayer().apply {
-                                            setDataSource(item.musicURL)
-                                            prepareAsync()
-                                            setOnPreparedListener { start() }
-                                            setOnCompletionListener {
-                                                currentPlayingUrl = null
-                                            }
-                                        }
-                                        currentPlayingUrl = item.musicURL
+                                        musicViewModel.playMusic(item.musicURL, item.id)
                                     }
                                 }
                             },
                             modifier = Modifier.size(64.dp)
                         ) {
                             Image(
-                                painter = painterResource(id = if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play),
+                                painter = painterResource(id = if (isPlaying) R.drawable.ic_stop else R.drawable.ic_play),
                                 contentDescription = "Play",
                                 modifier = Modifier.size(64.dp),
                                 colorFilter = ColorFilter.tint(Color(0xFF002055))
                             )
                         }
+                    }
+                }
+            }
+            if (musicViewModel.musicUIState.isLoadingLoadMore) {
+                item {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .wrapContentSize(Alignment.Center)
+                    ) {
+                        CircularProgressIndicator()
                     }
                 }
             }
