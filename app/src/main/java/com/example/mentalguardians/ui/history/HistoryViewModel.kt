@@ -17,7 +17,8 @@ data class HistoryUIState(
     val isLoading: Boolean = false,
     val listContent: List<GetMoodData> = emptyList(),
     val isLastPage: Boolean = false,
-    val detailHistory: DetailMoodData = DetailMoodData(0, "", false, "", "")
+    val detailHistory: DetailMoodData = DetailMoodData(0, "", false, "", ""),
+    val isLoadingLoadMore: Boolean = false
 )
 
 class HistoryViewModel(private val apiClient: ApiClient): ViewModel() {
@@ -42,7 +43,11 @@ class HistoryViewModel(private val apiClient: ApiClient): ViewModel() {
 
     fun getAllHistory(onError: (String) -> Unit){
         viewModelScope.launch{
-            historyUIState = historyUIState.copy(isLoading = true)
+            if(page == 1){
+                historyUIState = historyUIState.copy(isLoading = true)
+            }else{
+                historyUIState = historyUIState.copy(isLoadingLoadMore = true)
+            }
             try {
                 val response = apiClient.retrofitService.getAllMoods(page = page, limit = 15)
                 if (response.isSuccessful){
@@ -75,6 +80,7 @@ class HistoryViewModel(private val apiClient: ApiClient): ViewModel() {
                 onError(e.localizedMessage ?: "Error occurred")
             }finally {
                 historyUIState = historyUIState.copy(isLoading = false)
+                historyUIState = historyUIState.copy(isLoadingLoadMore = false)
             }
         }
     }

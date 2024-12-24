@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -83,7 +84,13 @@ fun SignUpScreen(navigateToLoginScreen : () -> Unit, navigateToMainScreen: () ->
                             fontSize = 14.sp,
                             color = Color(0xFF848A94)
                         )
-                    }
+                    },
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontFamily = poppinsFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 14.sp,
+                    )
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 OutlinedTextField(
@@ -101,7 +108,13 @@ fun SignUpScreen(navigateToLoginScreen : () -> Unit, navigateToMainScreen: () ->
                             fontSize = 14.sp,
                             color = Color(0xFF848A94)
                         )
-                    }
+                    },
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontFamily = poppinsFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 14.sp,
+                    )
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 OutlinedTextField(
@@ -119,7 +132,13 @@ fun SignUpScreen(navigateToLoginScreen : () -> Unit, navigateToMainScreen: () ->
                             fontSize = 14.sp,
                             color = Color(0xFF848A94)
                         )
-                    }
+                    },
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontFamily = poppinsFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 14.sp,
+                    )
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 OutlinedTextField(
@@ -150,7 +169,13 @@ fun SignUpScreen(navigateToLoginScreen : () -> Unit, navigateToMainScreen: () ->
                         VisualTransformation.None
                     }else{
                         PasswordVisualTransformation()
-                    }
+                    },
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontFamily = poppinsFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 14.sp,
+                    )
                 )
                 Spacer(modifier = Modifier.height(48.dp))
                 Button(

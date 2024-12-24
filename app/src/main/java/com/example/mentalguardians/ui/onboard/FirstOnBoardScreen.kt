@@ -32,7 +32,7 @@ fun FirstOnBoardScreen(navigateToSecondScreen: () -> Unit, navigateToThirdScreen
     Column(
         modifier = Modifier.fillMaxSize().background(Color.White),
     ) {
-        Spacer(modifier = Modifier.height(56.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         Image(
             painter = painterResource(id = R.drawable.first_onboard),
             contentDescription = "First Onboard Image",
@@ -68,7 +68,7 @@ fun FirstOnBoardScreen(navigateToSecondScreen: () -> Unit, navigateToThirdScreen
                 .width(72.dp)
                 .padding(start = 32.dp)
         )
-        Spacer(modifier = Modifier.height(56.dp))
+        Spacer(modifier = Modifier.height(44.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()

@@ -16,7 +16,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -81,10 +83,12 @@ fun DetailTherapistScreen(detailTherapistViewModel: DetailTherapistViewModel, id
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.White)
-                .padding(top = 64.dp)
+                .padding(top = 64.dp, bottom = 12.dp)
         ) {
             Column(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
             ) {
                 Image(
                     painter = rememberAsyncImagePainter(model = therapistData.photoURL),

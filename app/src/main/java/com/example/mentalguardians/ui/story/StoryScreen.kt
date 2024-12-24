@@ -92,7 +92,6 @@ fun StoryScreen(storyViewModel: StoryViewModel, categoryStories: String, navigat
                             contentAlignment = Alignment.Center
                         ) {
                             Image(
-//                                painter = painterResource(id = R.drawable.dummyimage),
                                 painter = rememberAsyncImagePainter(model = item.thumbnailURL),
                                 contentDescription = "Image Thumbnail",
                                 modifier = Modifier.fillMaxSize()
@@ -100,13 +99,6 @@ fun StoryScreen(storyViewModel: StoryViewModel, categoryStories: String, navigat
                         }
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
-//                            Text(
-//                                text = item.author,
-//                                fontFamily = poppinsFontFamily,
-//                                fontWeight = FontWeight.Normal,
-//                                fontSize = 12.sp,
-//                                color = Color(0xFF002055),
-//                            )
                             Text(
                                 text = item.title,
                                 fontFamily = poppinsFontFamily,
@@ -133,13 +125,6 @@ fun StoryScreen(storyViewModel: StoryViewModel, categoryStories: String, navigat
                                     color = Color(0xFF848A94),
                                 )
                             }
-//                            Text(
-//                                text = createdAt,
-//                                fontFamily = poppinsFontFamily,
-//                                fontWeight = FontWeight.Normal,
-//                                fontSize = 12.sp,
-//                                color = Color(0xFF848A94),
-//                            )
                         }
                     }
                 }

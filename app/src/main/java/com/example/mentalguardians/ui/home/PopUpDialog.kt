@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -70,7 +71,13 @@ fun PopUpDialog(homeViewModel: HomeViewModel, navigateToBadMoodScreen: () -> Uni
                             fontSize = 14.sp,
                             color = Color(0xFF848A94)
                         )
-                    }
+                    },
+                    textStyle = TextStyle(
+                        color = Color.Black,
+                        fontFamily = poppinsFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 14.sp,
+                    )
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(

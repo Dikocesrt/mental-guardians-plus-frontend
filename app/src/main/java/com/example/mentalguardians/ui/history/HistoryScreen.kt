@@ -272,6 +272,17 @@ fun HistoryScreen(historyViewModel: HistoryViewModel, mainViewModel: MainViewMod
                             }
                         }
                     }
+                    if (historyViewModel.historyUIState.isLoadingLoadMore) {
+                        item {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .wrapContentSize(Alignment.Center)
+                            ) {
+                                CircularProgressIndicator()
+                            }
+                        }
+                    }
                 }
 
                 LaunchedEffect(lazyColumnState) {

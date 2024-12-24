@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,7 +38,8 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(start = 32.dp, end = 32.dp, top = 64.dp, bottom = 16.dp),
+            .padding(start = 32.dp, end = 32.dp, top = 64.dp, bottom = 16.dp)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

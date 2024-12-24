@@ -50,8 +50,6 @@ fun MusicScreen(musicViewModel: MusicViewModel) {
     val context = LocalContext.current
     val lazyColumnState = rememberLazyListState()
 
-//    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
-//    var currentPlayingUrl by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
