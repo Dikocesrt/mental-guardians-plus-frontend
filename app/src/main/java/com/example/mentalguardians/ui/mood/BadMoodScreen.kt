@@ -32,7 +32,7 @@ import com.example.mentalguardians.ui.theme.poppinsFontFamily
 
 @Composable
 fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (String) -> Unit, navigateToStoryScreen: (String) -> Unit, navigateToTherapistScreen: (String) -> Unit, navigateToVideoScreen: (String) -> Unit, navigateToHomeScreen: () -> Unit){
-    val options = listOf("Bullying", "Trauma", "Keluarga", "Sekolah", "Romansa", "Finansial")
+    val options = listOf("Kepribadian", "Self Care", "Parenting", "Trauma", "Keluarga", "Romansa")
 
     Column(
         modifier = Modifier
@@ -153,12 +153,12 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             badMoodViewModel.selectedOption.value?.let {
                                 var convertedCategory = ""
                                 when(it) {
-                                    "Bullying" -> convertedCategory = "bullying"
+                                    "Kepribadian" -> convertedCategory = "personality"
+                                    "Self Care" -> convertedCategory = "self care"
+                                    "Parenting" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
-                                    "Sekolah" -> convertedCategory = "school"
                                     "Romansa" -> convertedCategory = "love"
-                                    "Finansial" -> convertedCategory = "finance"
                                     else -> convertedCategory = ""
                                 }
                                 navigateToTherapistScreen(
@@ -169,7 +169,7 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                     contentAlignment = Alignment.Center
                 ){
                     Text(
-                        text = "Psikiater",
+                        text = "Psikolog",
                         fontFamily = poppinsFontFamily,
                         fontWeight = FontWeight.Normal,
                         fontSize = 12.sp,
@@ -188,12 +188,12 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             badMoodViewModel.selectedOption.value?.let {
                                 var convertedCategory = ""
                                 when(it) {
-                                    "Bullying" -> convertedCategory = "bullying"
-                                    "Trauma" -> convertedCategory = "trauma"
-                                    "Keluarga" -> convertedCategory = "family"
-                                    "Sekolah" -> convertedCategory = "school"
-                                    "Romansa" -> convertedCategory = "love"
-                                    "Finansial" -> convertedCategory = "finance"
+                                    "Kepribadian" -> convertedCategory = "Personality"
+                                    "Self Care" -> convertedCategory = "Self Care"
+                                    "Parenting" -> convertedCategory = "Parenting"
+                                    "Trauma" -> convertedCategory = "Trauma"
+                                    "Keluarga" -> convertedCategory = "Family"
+                                    "Romansa" -> convertedCategory = "Love"
                                     else -> convertedCategory = ""
                                 }
                                 navigateToVideoScreen(
@@ -228,12 +228,12 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             badMoodViewModel.selectedOption.value?.let {
                                 var convertedCategory = ""
                                 when(it) {
-                                    "Bullying" -> convertedCategory = "bullying"
+                                    "Kepribadian" -> convertedCategory = "personality"
+                                    "Self Care" -> convertedCategory = "self care"
+                                    "Parenting" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
-                                    "Sekolah" -> convertedCategory = "school"
                                     "Romansa" -> convertedCategory = "love"
-                                    "Finansial" -> convertedCategory = "finance"
                                     else -> convertedCategory = ""
                                 }
                                 navigateToArticleScreen(
@@ -263,12 +263,12 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             badMoodViewModel.selectedOption.value?.let {
                                 var convertedCategory = ""
                                 when(it) {
-                                    "Bullying" -> convertedCategory = "bullying"
+                                    "Kepribadian" -> convertedCategory = "personality"
+                                    "Self Care" -> convertedCategory = "self care"
+                                    "Parenting" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
-                                    "Sekolah" -> convertedCategory = "school"
                                     "Romansa" -> convertedCategory = "love"
-                                    "Finansial" -> convertedCategory = "finance"
                                     else -> convertedCategory = ""
                                 }
                                 navigateToStoryScreen(

@@ -375,7 +375,7 @@ fun DetailTherapistScreen(detailTherapistViewModel: DetailTherapistViewModel, id
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = "Hubungi Psikiater",
+                            text = "Hubungi Psikolog",
                             fontFamily = poppinsFontFamily,
                             fontWeight = FontWeight.Bold,
                             fontSize = 16.sp,

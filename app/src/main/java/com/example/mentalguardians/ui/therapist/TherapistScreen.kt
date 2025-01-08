@@ -71,12 +71,12 @@ fun TherapistScreen(therapistViewModel: TherapistViewModel, specialist: String, 
                 var specialist = ""
 
                 when (item.specialist) {
-                    "bullying" -> specialist = "Perundungan/Bullying"
+                    "personality" -> specialist = "Gangguan Kepribadian"
                     "trauma" -> specialist = "Trauma"
                     "family" -> specialist = "Permasalahan Keluarga"
-                    "school" -> specialist = "Permasalahan Akademik"
+                    "self care" -> specialist = "Pengembangan Diri"
                     "love" -> specialist = "Romansa/Percintaan"
-                    "finance" -> specialist = "Permasalahan Finansial"
+                    "parenting" -> specialist = "Parenting/Pengasuhan"
                     else -> specialist = ""
                 }
 
