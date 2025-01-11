@@ -74,9 +74,9 @@ fun TherapistScreen(therapistViewModel: TherapistViewModel, specialist: String, 
                     "personality" -> specialist = "Gangguan Kepribadian"
                     "trauma" -> specialist = "Trauma"
                     "family" -> specialist = "Permasalahan Keluarga"
-                    "self care" -> specialist = "Pengembangan Diri"
+                    "bullying" -> specialist = "Perundungan/Bullying"
                     "love" -> specialist = "Romansa/Percintaan"
-                    "parenting" -> specialist = "Parenting/Pengasuhan"
+                    "parenting" -> specialist = "Pengasuhan Anak"
                     else -> specialist = ""
                 }
 

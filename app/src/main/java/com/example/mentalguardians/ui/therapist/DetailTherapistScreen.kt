@@ -63,9 +63,9 @@ fun DetailTherapistScreen(detailTherapistViewModel: DetailTherapistViewModel, id
         "bullying" -> specialist = "Perundungan/Bullying"
         "trauma" -> specialist = "Trauma"
         "family" -> specialist = "Permasalahan Keluarga"
-        "school" -> specialist = "Permasalahan Akademik"
+        "parenting" -> specialist = "Pengasuhan Anak"
         "love" -> specialist = "Romansa/Percintaan"
-        "finance" -> specialist = "Permasalahan Finansial"
+        "personality" -> specialist = "Gangguan Kepribadian"
         else -> specialist = ""
     }
 

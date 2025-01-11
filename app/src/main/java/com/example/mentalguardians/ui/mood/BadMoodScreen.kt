@@ -32,7 +32,7 @@ import com.example.mentalguardians.ui.theme.poppinsFontFamily
 
 @Composable
 fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (String) -> Unit, navigateToStoryScreen: (String) -> Unit, navigateToTherapistScreen: (String) -> Unit, navigateToVideoScreen: (String) -> Unit, navigateToHomeScreen: () -> Unit){
-    val options = listOf("Kepribadian", "Self Care", "Parenting", "Trauma", "Keluarga", "Romansa")
+    val options = listOf("Kepribadian", "Perundungan", "Pengasuhan", "Trauma", "Keluarga", "Romansa")
 
     Column(
         modifier = Modifier
@@ -154,8 +154,8 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                                 var convertedCategory = ""
                                 when(it) {
                                     "Kepribadian" -> convertedCategory = "personality"
-                                    "Self Care" -> convertedCategory = "self care"
-                                    "Parenting" -> convertedCategory = "parenting"
+                                    "Perundungan" -> convertedCategory = "bullying"
+                                    "Pengasuhan" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
                                     "Romansa" -> convertedCategory = "love"
@@ -188,12 +188,12 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             badMoodViewModel.selectedOption.value?.let {
                                 var convertedCategory = ""
                                 when(it) {
-                                    "Kepribadian" -> convertedCategory = "Personality"
-                                    "Self Care" -> convertedCategory = "Self Care"
-                                    "Parenting" -> convertedCategory = "Parenting"
-                                    "Trauma" -> convertedCategory = "Trauma"
-                                    "Keluarga" -> convertedCategory = "Family"
-                                    "Romansa" -> convertedCategory = "Love"
+                                    "Kepribadian" -> convertedCategory = "personality"
+                                    "Perundungan" -> convertedCategory = "bullying"
+                                    "Pengasuhan" -> convertedCategory = "parenting"
+                                    "Trauma" -> convertedCategory = "trauma"
+                                    "Keluarga" -> convertedCategory = "family"
+                                    "Romansa" -> convertedCategory = "love"
                                     else -> convertedCategory = ""
                                 }
                                 navigateToVideoScreen(
@@ -229,8 +229,8 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                                 var convertedCategory = ""
                                 when(it) {
                                     "Kepribadian" -> convertedCategory = "personality"
-                                    "Self Care" -> convertedCategory = "self care"
-                                    "Parenting" -> convertedCategory = "parenting"
+                                    "Perundungan" -> convertedCategory = "bullying"
+                                    "Pengasuhan" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
                                     "Romansa" -> convertedCategory = "love"
@@ -264,8 +264,8 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                                 var convertedCategory = ""
                                 when(it) {
                                     "Kepribadian" -> convertedCategory = "personality"
-                                    "Self Care" -> convertedCategory = "self care"
-                                    "Parenting" -> convertedCategory = "parenting"
+                                    "Perundungan" -> convertedCategory = "bullying"
+                                    "Pengasuhan" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
                                     "Romansa" -> convertedCategory = "love"
