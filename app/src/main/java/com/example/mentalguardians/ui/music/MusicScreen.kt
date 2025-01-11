@@ -110,7 +110,9 @@ fun MusicScreen(musicViewModel: MusicViewModel) {
                                 )
                             }
                             Spacer(modifier = Modifier.width(8.dp))
-                            Column {
+                            Column(
+                                modifier = Modifier.width(172.dp)
+                            ) {
                                 Text(
                                     text = item.title,
                                     fontFamily = poppinsFontFamily,

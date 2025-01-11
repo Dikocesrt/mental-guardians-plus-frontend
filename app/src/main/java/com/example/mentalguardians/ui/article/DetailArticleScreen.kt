@@ -1,6 +1,6 @@
 package com.example.mentalguardians.ui.article
 
-import android.text.Html
+import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,26 +24,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.text.HtmlCompat
 import coil.compose.rememberAsyncImagePainter
 import com.example.mentalguardians.ui.theme.poppinsFontFamily
 
 @Composable
-fun DetailArticleScreen(detailArticleViewModel: DetailArticleViewModel, id: Int){
+fun DetailArticleScreen(detailArticleViewModel: DetailArticleViewModel, id: Int) {
 
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         detailArticleViewModel.getDetailArticle(
-            onError = {errorMessage->
+            onError = { errorMessage ->
                 Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
             },
             articleID = id
         )
     }
 
-    val longText = Html.fromHtml(detailArticleViewModel.detailArticleUIState.articleData.content, Html.FROM_HTML_MODE_LEGACY)
-
-    if(detailArticleViewModel.detailArticleUIState.isLoading){
+    if (detailArticleViewModel.detailArticleUIState.isLoading) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -73,7 +73,9 @@ fun DetailArticleScreen(detailArticleViewModel: DetailArticleViewModel, id: Int)
             }
             item {
                 Text(
-                    modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth(),
                     text = detailArticleViewModel.detailArticleUIState.articleData.title,
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.SemiBold,
@@ -86,14 +88,19 @@ fun DetailArticleScreen(detailArticleViewModel: DetailArticleViewModel, id: Int)
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {
-                Text(
+                // Menggunakan AndroidView untuk mendukung rendering HTML
+                AndroidView(
                     modifier = Modifier.padding(horizontal = 16.dp),
-                    text = "$longText",
-                    fontFamily = poppinsFontFamily,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 12.sp,
-                    color = Color(0xFF1A1A1A),
-                    textAlign = TextAlign.Justify
+                    factory = { context ->
+                        TextView(context).apply {
+                            text = HtmlCompat.fromHtml(
+                                detailArticleViewModel.detailArticleUIState.articleData.content,
+                                HtmlCompat.FROM_HTML_MODE_LEGACY
+                            )
+                            textSize = 12f
+                            setTextColor(android.graphics.Color.BLACK)
+                        }
+                    }
                 )
             }
         }
