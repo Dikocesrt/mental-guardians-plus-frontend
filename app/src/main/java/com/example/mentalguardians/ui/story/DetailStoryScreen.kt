@@ -1,6 +1,7 @@
 package com.example.mentalguardians.ui.story
 
 import android.text.Html
+import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.text.HtmlCompat
 import coil.compose.rememberAsyncImagePainter
 import com.example.mentalguardians.ui.theme.poppinsFontFamily
 
@@ -86,14 +89,19 @@ fun DetailStoryScreen(detailStoryViewModel: DetailStoryViewModel, id: Int){
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {
-                Text(
+                // Menggunakan AndroidView untuk mendukung rendering HTML
+                AndroidView(
                     modifier = Modifier.padding(horizontal = 16.dp),
-                    text = "$longText",
-                    fontFamily = poppinsFontFamily,
-                    fontWeight = FontWeight.Normal,
-                    fontSize = 12.sp,
-                    color = Color(0xFF1A1A1A),
-                    textAlign = TextAlign.Justify
+                    factory = { context ->
+                        TextView(context).apply {
+                            text = HtmlCompat.fromHtml(
+                                detailStoryViewModel.detailStoryUIState.storyData.content,
+                                HtmlCompat.FROM_HTML_MODE_LEGACY
+                            )
+                            textSize = 12f
+                            setTextColor(android.graphics.Color.BLACK)
+                        }
+                    }
                 )
             }
         }

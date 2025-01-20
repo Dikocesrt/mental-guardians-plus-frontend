@@ -374,14 +374,26 @@ fun MainNavigation(
                 navigateToArticleScreen = {category->
                     navController.navigate(Screen.ArticleScreen.createRoute(category = category))
                 },
+                navigateToArticleScreen2 = {
+                    navController.navigate(Screen.ArticleScreen.route)
+                },
                 navigateToStoryScreen = {category->
                     navController.navigate(Screen.StoryScreen.createRoute(category = category))
+                },
+                navigateToStoryScreen2 = {
+                    navController.navigate(Screen.StoryScreen.route)
                 },
                 navigateToTherapistScreen = {category->
                     navController.navigate(Screen.BottomScreen.Therapist.createRoute(category = category))
                 },
+                navigateToTherapistScreen2 = {
+                    navController.navigate(Screen.BottomScreen.Therapist.bRoute)
+                },
                 navigateToVideoScreen = {category->
                     navController.navigate(Screen.VideoScreen.createRoute(category = category))
+                },
+                navigateToVideoScreen2 = {
+                    navController.navigate(Screen.VideoScreen.route)
                 },
                 navigateToHomeScreen = {
                     navController.popBackStack()

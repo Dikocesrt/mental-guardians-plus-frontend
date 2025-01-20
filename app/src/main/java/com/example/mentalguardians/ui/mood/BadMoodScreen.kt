@@ -31,7 +31,7 @@ import com.example.mentalguardians.R
 import com.example.mentalguardians.ui.theme.poppinsFontFamily
 
 @Composable
-fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (String) -> Unit, navigateToStoryScreen: (String) -> Unit, navigateToTherapistScreen: (String) -> Unit, navigateToVideoScreen: (String) -> Unit, navigateToHomeScreen: () -> Unit){
+fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (String) -> Unit, navigateToArticleScreen2: () -> Unit, navigateToStoryScreen: (String) -> Unit, navigateToStoryScreen2: () -> Unit, navigateToTherapistScreen: (String) -> Unit, navigateToTherapistScreen2: () -> Unit, navigateToVideoScreen: (String) -> Unit, navigateToVideoScreen2: () -> Unit, navigateToHomeScreen: () -> Unit){
     val options = listOf("Kepribadian", "Perundungan", "Pengasuhan", "Trauma", "Keluarga", "Romansa")
 
     Column(
@@ -150,20 +150,19 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             shape = RoundedCornerShape(25)
                         ).width(124.dp).height(48.dp)
                         .clickable {
-                            badMoodViewModel.selectedOption.value?.let {
+                            if (badMoodViewModel.selectedOption.value == null) {
+                                navigateToTherapistScreen2()
+                            } else {
                                 var convertedCategory = ""
-                                when(it) {
+                                when (badMoodViewModel.selectedOption.value) {
                                     "Kepribadian" -> convertedCategory = "personality"
                                     "Perundungan" -> convertedCategory = "bullying"
                                     "Pengasuhan" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
                                     "Romansa" -> convertedCategory = "love"
-                                    else -> convertedCategory = ""
                                 }
-                                navigateToTherapistScreen(
-                                    convertedCategory
-                                )
+                                navigateToTherapistScreen(convertedCategory)
                             }
                         },
                     contentAlignment = Alignment.Center
@@ -185,20 +184,19 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             shape = RoundedCornerShape(25)
                         ).width(124.dp).height(48.dp)
                         .clickable {
-                            badMoodViewModel.selectedOption.value?.let {
+                            if (badMoodViewModel.selectedOption.value == null) {
+                                navigateToVideoScreen2()
+                            } else {
                                 var convertedCategory = ""
-                                when(it) {
+                                when (badMoodViewModel.selectedOption.value) {
                                     "Kepribadian" -> convertedCategory = "personality"
                                     "Perundungan" -> convertedCategory = "bullying"
                                     "Pengasuhan" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
                                     "Romansa" -> convertedCategory = "love"
-                                    else -> convertedCategory = ""
                                 }
-                                navigateToVideoScreen(
-                                    convertedCategory
-                                )
+                                navigateToVideoScreen(convertedCategory)
                             }
                         },
                     contentAlignment = Alignment.Center
@@ -225,20 +223,19 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             shape = RoundedCornerShape(25)
                         ).width(124.dp).height(48.dp)
                         .clickable {
-                            badMoodViewModel.selectedOption.value?.let {
+                            if (badMoodViewModel.selectedOption.value == null) {
+                                navigateToArticleScreen2()
+                            } else {
                                 var convertedCategory = ""
-                                when(it) {
+                                when (badMoodViewModel.selectedOption.value) {
                                     "Kepribadian" -> convertedCategory = "personality"
                                     "Perundungan" -> convertedCategory = "bullying"
                                     "Pengasuhan" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
                                     "Romansa" -> convertedCategory = "love"
-                                    else -> convertedCategory = ""
                                 }
-                                navigateToArticleScreen(
-                                    convertedCategory
-                                )
+                                navigateToArticleScreen(convertedCategory)
                             }
                         },
                     contentAlignment = Alignment.Center
@@ -260,20 +257,19 @@ fun BadMoodScreen(badMoodViewModel: BadMoodViewModel, navigateToArticleScreen: (
                             shape = RoundedCornerShape(25)
                         ).width(124.dp).height(48.dp)
                         .clickable {
-                            badMoodViewModel.selectedOption.value?.let {
+                            if (badMoodViewModel.selectedOption.value == null) {
+                                navigateToStoryScreen2()
+                            } else {
                                 var convertedCategory = ""
-                                when(it) {
+                                when (badMoodViewModel.selectedOption.value) {
                                     "Kepribadian" -> convertedCategory = "personality"
                                     "Perundungan" -> convertedCategory = "bullying"
                                     "Pengasuhan" -> convertedCategory = "parenting"
                                     "Trauma" -> convertedCategory = "trauma"
                                     "Keluarga" -> convertedCategory = "family"
                                     "Romansa" -> convertedCategory = "love"
-                                    else -> convertedCategory = ""
                                 }
-                                navigateToStoryScreen(
-                                    convertedCategory
-                                )
+                                navigateToStoryScreen(convertedCategory)
                             }
                         },
                     contentAlignment = Alignment.Center

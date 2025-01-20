@@ -49,6 +49,7 @@ class SignUpViewModel(private val userPreferences: UserPreferences, private val 
     fun registerUser(onSuccess: () -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             signUpUIState = signUpUIState.copy(isLoading = true)
+            val startTime = System.currentTimeMillis()
             try {
                 val request = SignUpRequest(
                     email = signUpUIState.email,
@@ -79,6 +80,9 @@ class SignUpViewModel(private val userPreferences: UserPreferences, private val 
                 e.message?.let { Log.d("SignUpViewModel", it) }
                 onError(e.localizedMessage ?: "Error occurred")
             }finally {
+                val endTime = System.currentTimeMillis()
+                val duration = endTime - startTime
+                Log.d("SignupViewModel", "Waktu Respons Signup: ${duration}ms")
                 signUpUIState = signUpUIState.copy(isLoading = false)
             }
         }

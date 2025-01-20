@@ -33,9 +33,10 @@ class HomeViewModel(private val apiClient: ApiClient) : ViewModel(){
         HomeUIState = HomeUIState.copy(moodInput = mood)
     }
 
-    fun sendMood(onSuccess: (Boolean) -> Unit, onError: (String) -> Unit){
+    fun sendMood(onSuccess: (Boolean) -> Unit, onError: (String) -> Unit) {
         viewModelScope.launch {
             HomeUIState = HomeUIState.copy(isLoading2 = true)
+            val startTime = System.currentTimeMillis()
             try {
                 val request = MoodRequest(
                     content = HomeUIState.moodInput
@@ -43,14 +44,14 @@ class HomeViewModel(private val apiClient: ApiClient) : ViewModel(){
 
                 val response = apiClient.retrofitService.sendMood(request = request)
 
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     val successResponse = response.body()
-                    if(successResponse != null){
+                    if (successResponse != null) {
                         onSuccess(successResponse.data.isGood)
                     } else {
                         onError("Response body is null")
                     }
-                }else{
+                } else {
                     val errorResponse = response.errorBody()?.string()
                     if (errorResponse != null) {
                         val errorResponse = Gson().fromJson(errorResponse, MoodResponse::class.java)
@@ -60,10 +61,13 @@ class HomeViewModel(private val apiClient: ApiClient) : ViewModel(){
                         onError("Unknown error occurred")
                     }
                 }
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 e.message?.let { Log.d("LoginViewModel", it) }
                 onError(e.localizedMessage ?: "Error occurred")
-            }finally {
+            } finally {
+                val endTime = System.currentTimeMillis()
+                val duration = endTime - startTime
+                Log.d("HomeViewModel", "Waktu Respons Analisis Mood: ${duration}ms")
                 HomeUIState = HomeUIState.copy(isLoading2 = false)
             }
         }

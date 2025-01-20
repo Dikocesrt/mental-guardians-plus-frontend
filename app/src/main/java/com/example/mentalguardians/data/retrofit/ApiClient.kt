@@ -12,7 +12,7 @@ class ApiClient(private val userPreferences: UserPreferences) {
         .addConverterFactory(GsonConverterFactory.create())
         .client(
             OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(userPreferences)) // Mengoper UserPreferences ke interceptor
+            .addInterceptor(AuthInterceptor(userPreferences))
             .build())
         .build()
 

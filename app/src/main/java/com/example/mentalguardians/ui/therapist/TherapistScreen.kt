@@ -158,15 +158,37 @@ fun TherapistScreen(therapistViewModel: TherapistViewModel, specialist: String, 
             }
         }
 
+//        LaunchedEffect(lazyColumnState) {
+//            snapshotFlow {
+//                lazyColumnState.layoutInfo.visibleItemsInfo.lastOrNull()?.index?.let { lastVisibleIndex ->
+//                    lastVisibleIndex >= therapistViewModel.therapistUIState.listContent.size - 3
+//                } ?: false
+//            }.collect { isEndReached ->
+//                if (!therapistViewModel.therapistUIState.isLoading && isEndReached && !therapistViewModel.therapistUIState.isLastPage) {
+//                    therapistViewModel.getAllTherapists(
+//                        onError = {errorMessage->
+//                            Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+//                        },
+//                        specialist = specialist
+//                    )
+//                }
+//            }
+//        }
+
         LaunchedEffect(lazyColumnState) {
             snapshotFlow {
                 lazyColumnState.layoutInfo.visibleItemsInfo.lastOrNull()?.index?.let { lastVisibleIndex ->
                     lastVisibleIndex >= therapistViewModel.therapistUIState.listContent.size - 3
                 } ?: false
             }.collect { isEndReached ->
-                if (!therapistViewModel.therapistUIState.isLoading && isEndReached && !therapistViewModel.therapistUIState.isLastPage) {
+                if (
+                    therapistViewModel.therapistUIState.listContent.size >= 5 && // Pastikan ada cukup item dalam daftar
+                    !therapistViewModel.therapistUIState.isLoading &&
+                    isEndReached &&
+                    !therapistViewModel.therapistUIState.isLastPage
+                ) {
                     therapistViewModel.getAllTherapists(
-                        onError = {errorMessage->
+                        onError = { errorMessage ->
                             Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
                         },
                         specialist = specialist

@@ -39,6 +39,7 @@ class LoginViewModel(private val userPreferences: UserPreferences, private val a
     fun loginUser(onSuccess: () -> Unit, onError: (String) -> Unit){
         viewModelScope.launch{
             loginUIState = loginUIState.copy(isLoading = true)
+            val startTime = System.currentTimeMillis()
             try {
                 val request = LoginRequest(
                     email = loginUIState.email,
@@ -68,6 +69,9 @@ class LoginViewModel(private val userPreferences: UserPreferences, private val a
                 e.message?.let { Log.d("LoginViewModel", it) }
                 onError(e.localizedMessage ?: "Error occurred")
             }finally {
+                val endTime = System.currentTimeMillis()
+                val duration = endTime - startTime
+                Log.d("LoginViewModel", "Waktu Respons Login: ${duration}ms")
                 loginUIState = loginUIState.copy(isLoading = false)
             }
         }
